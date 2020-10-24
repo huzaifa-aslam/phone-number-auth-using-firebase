@@ -28,8 +28,8 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
 }
 
 function codeAuth(){
-
-    confirmationResult.confirm(verCode).then(function (result) {
+    var varCode=document.getElementById("code")
+    confirmationResult.confirm(varCode).then(function (result) {
         // User signed in successfully.
         var user = result.user;
         console.log("result.user",user)
