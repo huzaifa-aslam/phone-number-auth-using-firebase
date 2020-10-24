@@ -1,3 +1,12 @@
+window.onload=function(){
+    render()
+}
+
+function render(){
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+    recaptchaVerifier.render(); 
+}
+
 function firebaseAuth(){
     var phoneNumber=document.getElementById("number").value
     var verCode=document.getElementById("code").value
@@ -7,7 +16,7 @@ function firebaseAuth(){
 // To apply the default browser preference instead of explicitly setting it.
 // firebase.auth().useDeviceLanguage();
 
-window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(signBtn, {
     'size': 'invisible',
     'callback': function(response) {
       // reCAPTCHA solved, allow signInWithPhoneNumber.
@@ -15,13 +24,7 @@ window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button',
       console.log("response",response)
     }
   });
-  window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-    'size': 'invisible',
-    'callback': function(response) {
-      // reCAPTCHA solved, allow signInWithPhoneNumber.
-      onSignInSubmit();
-    }
-  });
+
   window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
   var appVerifier = window.recaptchaVerifier;
 firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
@@ -40,7 +43,7 @@ firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
     confirmationResult.confirm(verCode).then(function (result) {
         // User signed in successfully.
         var user = result.user;
-        console.log("result.user",result.user)
+        console.log("result.user",user)
         // ...
       }).catch(function (error) {
         // User couldn't sign in (bad verification code?)
